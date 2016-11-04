@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+        body{
+            width:100%;
+            height:100%;
+        }
+        .outbox{
+            width:1060px;
+            margin:0 auto;
+            overflow: hidden;
+            background: black;
+        }
+        .tp{
+            width:200px;
+            height:auto;
+            float: left;
+            margin: 5px;
+            border: 1px solid red;
+        }
+        .tp img{
+            width:100%;
+            border-bottom:1px solid black;
+        }
+    </style>
+</head>
+<body>
+     <div class="outbox">
+             <div class="tp tp1"></div>
+             <div class="tp tp2"></div>
+             <div class="tp tp3"></div>
+             <div class="tp tp4"></div>
+             <div class="tp tp5"></div>
+     </div>
+</body>
+<script src="jquery-1.11.2.js"></script>
+<script>
+    var tp=document.getElementsByClassName("tp");
+    for(j=0;j<3;j++){
+        for(var i=0;i<tp.length;i++){
+            $(tp[i]).append("<img src='"+ Math.ceil(Math.random()*5) +'.jpg'+"' style='no-repeat center center'>")
+        }
+    }
+    $(window).scroll(function () {
+        var windowTop = $(window).innerHeight();//屏幕窗口的高度
+        var scrollTop = $(document).scrollTop();//滚动条的卷去的高度
+        var documentTop = $(document).innerHeight();//整个内容的高度
+        var Heightmin;
+        if(scrollTop+windowTop>(documentTop - 100)){
+             for(var k=0;k<5;k++){
+                  Heightmin=tp[0];
+                  for(var i=0;i<tp.length;i++){
+                     if(Heightmin.scrollHeight>tp[i].scrollHeight){
+                         Heightmin=tp[i];
+                     }
+                  }
+                  $(Heightmin).append("<img src='"+ Math.ceil(Math.random()*5) +'.jpg'+"' style='no-repeat center center'>")
+              }
+        }
+    })
+    $(window).resize(function () {
+         var ss=window.innerWidth;
+         panduan();
+    })
+    function panduan() {
+        var ss=window.innerWidth;
+        if(ss>1060) {
+            console.log("111")
+            $(".outbox").css("width", "1060px");
+            $(".outbox").empty();
+            mianxiang(5);
+        }
+        else if(ss<1060 && ss>900){
+            console.log("222")
+            $(".outbox").css("width","850px");
+            $(".outbox").empty();
+            mianxiang(4);
+        }
+        else if(ss<=900 && ss>700){
+//            alert("111")
+            console.log("333")
+            $(".outbox").css("width","640px");
+            $(".outbox").empty();
+            mianxiang(3);
+        }
+
+        if(ss<=700 && ss>500){
+            $(".outbox").css("width","430px");
+            $(".outbox").empty();
+            mianxiang(2);
+        }
+        if(ss<=500){
+            $(".outbox").css("width","210px");
+            $(".outbox").empty();
+            mianxiang(1);
+        }
+    }
+    panduan()
+    function mianxiang(math) {
+//        $(".outbox").css("width","1060px");
+        $(".outbox").empty();
+        for(var i=0;i<math;i++) {
+            var aa = $("<div class='tp'></div>")
+            $(".outbox").append(aa);
+        }
+        for(var i=0;i<3;i++){
+            for (var j = 0; j < math; j++) {
+                $(tp[j]).append("<img src='" + Math.ceil(Math.random() * 5) + '.jpg' + "' style='no-repeat center center'>")
+            }
+        }
+    }
+
+    var ss=Math.ceil(Math.random()*5);x
+</script>
+</html>
